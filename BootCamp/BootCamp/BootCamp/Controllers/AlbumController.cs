@@ -9,10 +9,10 @@ namespace BootCamp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AlbumController : ControllerBase
+    public class AlbunsController : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAlguns()
+        public async Task<IActionResult> GetAlbuns()
         {
             return Ok(new
             {
