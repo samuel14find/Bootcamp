@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace BootCamp.Repository.Mapping
 {
+    /// <summary>
+    /// Observe a propriedade: 
+    /// builder.HasMany(x => x.Musics).WithOne(x => x.Album).OnDelete(DeleteBehavior.Cascade);
+    /// Aqui indico que um album tem várias músicas. E estou indicando que se deletar um album ,
+    /// as músicas também serão deletadas. E as outras propriedades são auto descritivas. 
+    /// </summary>
     public class AlbumMapping : IEntityTypeConfiguration<Album>
     {
         public void Configure(EntityTypeBuilder<Album> builder)
