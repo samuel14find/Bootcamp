@@ -1,5 +1,7 @@
+using BootCamp.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,6 +22,11 @@ namespace BootCamp
         {
 
             services.AddControllers();
+            services.AddDbContext<MusicContext>(c =>
+            {
+                c.UseSqlite(this.Configuration.GetConnectionString("BootcampConnection"));
+            });
+            services.AddScoped<AlbumRepository>();
 
             //Configurando o Swagger
             services.AddSwaggerGen(c => {
