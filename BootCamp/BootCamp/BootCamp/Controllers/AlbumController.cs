@@ -31,5 +31,19 @@ namespace BootCamp.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveAlbuns() { }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAlbun(Guid id)
+        {
+            var result = await this._ctx.GetAlbumByIdAsync(id);
+
+            if (result == null)
+                return NotFound();
+            await this._ctx.DeleteAsync(result);
+            return NoContent();
+        }
     }
 }
