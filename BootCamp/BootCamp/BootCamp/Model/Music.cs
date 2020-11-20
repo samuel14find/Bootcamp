@@ -11,6 +11,22 @@ namespace BootCamp.Model
         public Guid Id { get; set; }
         public String Name { get; set; }
         public int Duration { get; set; }
+        /// <summary>
+        /// Exemplo do problema de reference loop. O JsonEgnore evita ele 
+        /// this example creates a reference loop
+        ///     var p = new Product()
+        ///     {
+        ///            ProductCategory = new ProductCategory()
+        ///         { 
+        ///         products = new List<Product>() 
+        ///         }
+        ///      };
+        ///     p.ProductCategory.products.Add(p); // <- this create the loop
+        ///     Explicação que encontrei no StackOverFloo:
+        ///     You can not handle the reference loop situation in the new System.Text.Json
+        ///     yet (netcore 3.1.1) unless you completely ignore a reference and its not a 
+        ///     good idea always. (using [JsonIgnore] attribute)
+        /// </summary>
         [JsonIgnore]
         public Album Album { get; set; }
     }
