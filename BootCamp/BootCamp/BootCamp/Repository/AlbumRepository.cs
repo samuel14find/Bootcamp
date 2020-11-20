@@ -21,6 +21,11 @@ namespace BootCamp.Repository
 
         public async Task<Album> GetAlbumByIdAsync(Guid id)
             => await this._ctx.Albums.Where(x => x.Id == id).FirstOrDefaultAsync();
-        
+
+        public async  Task DeleteAsync(Album model)
+        {
+            this._ctx.Remove(model);
+            await this._ctx.SaveChangesAsync();
+        }
     }
 }
