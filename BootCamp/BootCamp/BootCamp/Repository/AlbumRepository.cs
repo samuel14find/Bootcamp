@@ -27,5 +27,11 @@ namespace BootCamp.Repository
             this._ctx.Remove(model);
             await this._ctx.SaveChangesAsync();
         }
+
+        public async Task CreateAsync(Album album)
+        {
+            await this._ctx.Albums.AddAsync(album);
+            await this._ctx.SaveChangesAsync();
+        }
     }
 }
