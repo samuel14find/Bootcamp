@@ -18,5 +18,9 @@ namespace BootCamp.Repository
 
         public async Task<IList<Album>> GetAllAsync()
             => await this._ctx.Albums.ToListAsync();
+
+        public async Task<Album> GetAlbumByIdAsync(Guid id)
+            => await this._ctx.Albums.Where(x => x.Id == id).FirstOrDefaultAsync();
+        
     }
 }
