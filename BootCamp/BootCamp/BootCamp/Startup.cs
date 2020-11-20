@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
 
 namespace BootCamp
 {
@@ -22,6 +23,7 @@ namespace BootCamp
         {
 
             services.AddControllers();
+            
             services.AddDbContext<MusicContext>(c =>
             {
                 c.UseSqlite(this.Configuration.GetConnectionString("BootcampConnection"));
@@ -36,6 +38,9 @@ namespace BootCamp
                     Version = "v1"
                 });
             });
+            //Configurando o AutoMapper
+            services.AddAutoMapper(typeof(Startup).Assembly);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
