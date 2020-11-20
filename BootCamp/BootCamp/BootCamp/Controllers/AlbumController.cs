@@ -1,4 +1,5 @@
-﻿using BootCamp.Model;
+﻿using AutoMapper;
+using BootCamp.Model;
 using BootCamp.Repository;
 using BootCamp.ViewModel.Request;
 using Microsoft.AspNetCore.Http;
@@ -15,9 +16,11 @@ namespace BootCamp.Controllers
     public class AlbunsController : ControllerBase
     {
         private AlbumRepository _ctx { get; init; }
-        public AlbunsController(AlbumRepository ctx)
+        private IMapper _mapper { get; init; }
+        public AlbunsController(AlbumRepository ctx, IMapper mapper)
         {
             this._ctx = ctx;
+            this._mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetAlbuns()
@@ -40,15 +43,21 @@ namespace BootCamp.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            Album album = new Album()
-            {
-                Backdrop = request.Backdrop,
-                Band = request.Band,
-                Description = request.Description,
-                Name = request.Name
-            };
+            //Usar o AutoMapper aqui
+            //Album album = new Album()
+            //{
+            //    Backdrop = request.Backdrop,
+            //    Band = request.Band,
+            //    Description = request.Description,
+            //    Name = request.Name
+            //};
+            //await this._ctx.CreateAsync(album);
+            //return Created($"/{album.Id}", album);
+
+            Album album = this._mapper.Map<Album>(request);
             await this._ctx.CreateAsync(album);
             return Created($"/{album.Id}", album);
+
         }
 
         [HttpDelete("{id}")]
