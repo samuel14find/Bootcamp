@@ -22,5 +22,14 @@ namespace BootCamp.Controllers
         {
             return Ok((await this._ctx.GetAllAsync()));
         }
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetAlbum(Guid id)
+        {
+            var result = await this._ctx.GetAlbumByIdAsync(id);
+            if(result == null) return NotFound();
+
+            return Ok(result);
+        }
     }
 }
