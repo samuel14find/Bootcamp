@@ -1,4 +1,6 @@
-﻿using BootCamp.Repository;
+﻿using BootCamp.Model;
+using BootCamp.Repository;
+using BootCamp.ViewModel.Request;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -33,7 +35,21 @@ namespace BootCamp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveAlbuns() { }
+        public async Task<IActionResult> SaveAlbuns(AlbumRequest request) 
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            Album album = new Album()
+            {
+                Backdrop = request.Backdrop,
+                Band = request.Band,
+                Description = request.Description,
+                Name = request.Name
+            };
+            await this._ctx.CreateAsync(album);
+            return Created($"/{album.Id}", album);
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAlbun(Guid id)
