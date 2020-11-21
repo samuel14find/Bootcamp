@@ -11,6 +11,7 @@ namespace BootCamp.Model
         public Guid Id { get; set; }
 
         public Guid MusicId { get; set; }
+        public Guid UserId { get; set; }
 
         public Music Music { get; set; }
         /// <summary>
