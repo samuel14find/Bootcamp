@@ -38,6 +38,8 @@ namespace BootCamp.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> SaveAlbuns(AlbumRequest request) 
         {
             if (!ModelState.IsValid)
@@ -61,6 +63,8 @@ namespace BootCamp.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteAlbun(Guid id)
         {
             var result = await this._ctx.GetAlbumByIdAsync(id);
