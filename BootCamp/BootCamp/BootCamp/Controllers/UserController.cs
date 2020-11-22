@@ -80,7 +80,28 @@ namespace BootCamp.Controllers
             var result = this._mapper.Map<UserResponse>(user);
 
             return Created($"{result.Id}", result); //Porque não colocou o / como em return Created($"/{album.Id}", album)?
+        }
 
+        ///Agora devemos criar APIs para adicionar as músicas ao favorito
+        
+        [HttpPost("{id}/favorite-music/{musicId}")]
+        public async Task<IActionResult> SaveUserFavoriteMusic(Guid id, Guid musicId)
+        {
+            var music = await this._albumRepository.GetMusicAsync(musicId);
+            /// Aqui vou notar que quando eu busco meu User, essa busca também tem que 
+            /// trazer as Musicas Favoritas dele
+            var user = await this._userRepository.GetUserAsync(id);
+
+            if (user == null)
+                return UnprocessableEntity(new { Message = "User not Found" });
+            if (music == null)
+                return UnprocessableEntity(new { Message = "Music not Found" });
+
+            user.AddFavoritMusic(music); 
+
+            await this._userRepository.UpdateAsync(user);
+
+            return Ok();
         }
     }
 }
