@@ -32,9 +32,30 @@ namespace BootCamp.Controllers
         /// Autenticar, Registar, Favoritar a Musica, e Desfavoritar a Musica 
         
         [HttpPost("authenticate")]
-        public async Task<IActionResult> SignIn() 
+        public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+           
+
+            /// Nosso password está em base 64. A request vai vir com o password em string. 
+            var password = Convert.ToBase64String(Encoding.UTF8.GetBytes(request.Password));
+               
+            var user = await this._userRepository.AuthenticateAsync(request.Email, password);
+            if(user == null)
+            {
+                return UnprocessableEntity(new
+                {
+                    Message = "Email/Senha inválidos"
+                });
+                ;
+            }
+
+            var result = this._mapper.Map<UserResponse>(user);
+            return Ok(result);
         }
+        
+        
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
