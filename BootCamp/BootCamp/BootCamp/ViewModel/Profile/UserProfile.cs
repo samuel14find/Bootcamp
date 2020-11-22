@@ -1,5 +1,6 @@
 ﻿using BootCamp.Model;
 using BootCamp.ViewModel.Request;
+ using BootCamp.ViewModel.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace BootCamp.ViewModel.Profile
         public UserProfile()
         {
             CreateMap<RegisterRequest, User>();
+            CreateMap<User, UserResponse>();
         }
         
     }
