@@ -1,6 +1,5 @@
 ﻿using BootCamp.Model;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +18,21 @@ namespace BootCamp.Repository
         {
             await this._ctx.Users.AddAsync(user);
             await this._ctx.SaveChangesAsync(); 
+        }
+
+        public async Task<User> AuthenticateAsync(string email, string password)
+        {
+            /// Primeiro estamos incluindo as favoritas do usuário. Dentro das musicas 
+            /// favoritas tem uma propriedade chamada Music. E dentro de Music tenho a 
+            /// propriedade Album. Ai eu informa o Entity Framework para carregar elas 
+            /// para mim. 
+            return await this._ctx.Users
+                .Include(x => x.FavoritMusic)
+                .ThenInclude(x => x.Music)
+                .ThenInclude(x => x.Album)
+                .Where(x => x.Email == email && x.Password == password)
+                .FirstOrDefaultAsync();
+
         }
     }
 }
