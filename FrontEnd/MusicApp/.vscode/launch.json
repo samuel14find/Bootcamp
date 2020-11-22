@@ -17,6 +17,21 @@
                 "webpack:///src/*": "${webRoot}/*",
                 "webpack:///./~/*": "${webRoot}/node_modules/*",
             }
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
+            "sourceMapPathOverrides":{
+                "webpack:///*": "*",
+                "webpack:///./*": "${webRoot}/*",
+                "webpack:///src/*": "${webRoot}/*",
+                "webpack:///./~/*": "${webRoot}/node_modules/*",
+            }
         }
+
     ]
 }
