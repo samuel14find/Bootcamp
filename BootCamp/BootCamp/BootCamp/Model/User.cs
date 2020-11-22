@@ -13,11 +13,11 @@ namespace BootCamp.Model
         public String Password { get; set; }
         public String Photo { get; set; }
 
-        public IList<UserFavoritMusic> FavoritMusic {get; set;}
+        public IList<UserFavoritMusic> FavoritMusics {get; set;}
 
         public void AddFavoritMusic(Music music)
         {
-            this.FavoritMusic.Add(new UserFavoritMusic()
+            this.FavoritMusics.Add(new UserFavoritMusic()
             {
                 Music = music,
                 MusicId = music.Id,
@@ -28,12 +28,12 @@ namespace BootCamp.Model
 
         public void RemoveFavoriteMusic(Music music)
         {
-            var favMusic = this.FavoritMusic
+            var favMusic = this.FavoritMusics
                                .Where(x => x.MusicId == music.Id)
                                .FirstOrDefault();
             if (favMusic == null)
                 throw new Exception("Música não localizada na lista de favoritos");
-            this.FavoritMusic.Remove(favMusic);        }
+            this.FavoritMusics.Remove(favMusic);        }
 
     }
 }
