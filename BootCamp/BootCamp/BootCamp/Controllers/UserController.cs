@@ -103,5 +103,25 @@ namespace BootCamp.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id}/favorite-music/{musicId}")]
+        public async Task<IActionResult> RemoveUserFavoriteMusic(Guid id, Guid musicId)
+        {
+            var music = await this._albumRepository.GetMusicAsync(musicId);
+            /// Aqui vou notar que quando eu busco meu User, essa busca também tem que 
+            /// trazer as Musicas Favoritas dele
+            var user = await this._userRepository.GetUserAsync(id);
+
+            if (user == null)
+                return UnprocessableEntity(new { Message = "User not Found" });
+            if (music == null)
+                return UnprocessableEntity(new { Message = "Music not Found" });
+
+            user.RemoveFavoriteMusic(music);
+
+            await this._userRepository.UpdateAsync(user);
+
+            return Ok();
+        }
     }
 }
