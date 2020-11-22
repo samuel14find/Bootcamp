@@ -29,7 +29,7 @@ namespace BootCamp.Repository
             /// propriedade Album. Ai eu informa o Entity Framework para carregar elas 
             /// para mim. 
             return await this._ctx.Users
-                .Include(x => x.FavoritMusic)
+                .Include(x => x.FavoritMusics)
                 .ThenInclude(x => x.Music)
                 .ThenInclude(x => x.Album)
                 .Where(x => x.Email == email && x.Password == password)
@@ -39,7 +39,7 @@ namespace BootCamp.Repository
 
         public async Task<IList<User>> GetAllAsync()
         => await this._ctx.Users
-                .Include(x => x.FavoritMusic)
+                .Include(x => x.FavoritMusics)
                 .ThenInclude(x => x.Music)
                 .ThenInclude(x => x.Album).ToListAsync();
 
@@ -51,7 +51,7 @@ namespace BootCamp.Repository
 
         public async Task<User> GetUserAsync(Guid id)
         => await this._ctx.Users
-            .Include(x=>x.FavoritMusic)
+            .Include(x=>x.FavoritMusics)
             .ThenInclude(x => x.Music)
             .ThenInclude(x => x.Album)
             .Where(x => x.Id == id).FirstOrDefaultAsync();
