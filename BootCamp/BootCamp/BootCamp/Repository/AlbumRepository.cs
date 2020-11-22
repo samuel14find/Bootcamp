@@ -35,7 +35,7 @@ namespace BootCamp.Repository
         }
 
         public async Task<Music> GetMusicAsync(Guid musicId) 
-        => await this._ctx.Musics.Where(x => x.Id == musicId).FirstOrDefaultAsync();
+        => await this._ctx.Music.Where(x => x.Id == musicId).FirstOrDefaultAsync();
 
         
     }
