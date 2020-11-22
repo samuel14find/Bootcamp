@@ -20,7 +20,7 @@ namespace BootCamp.Repository.Mapping
             builder.Property(x => x.Password).IsRequired().HasMaxLength(200); //..
             builder.Property(x => x.Photo).IsRequired().HasMaxLength(500); //.. 
             // Se eu deletar um usuário não faz sentido ter música favorita dele
-            builder.HasMany(x => x.FavoritMusic)
+            builder.HasMany(x => x.FavoritMusics)
                 .WithOne(x => x.User)
                 .OnDelete(DeleteBehavior.Cascade);
 
