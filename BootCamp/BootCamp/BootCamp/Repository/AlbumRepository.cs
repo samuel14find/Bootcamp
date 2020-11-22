@@ -33,5 +33,10 @@ namespace BootCamp.Repository
             await this._ctx.Albums.AddAsync(album);
             await this._ctx.SaveChangesAsync();
         }
+
+        public async Task<Music> GetMusicAsync(Guid musicId) 
+        => await this._ctx.Musics.Where(x => x.Id == musicId).FirstOrDefaultAsync();
+
+        
     }
 }
