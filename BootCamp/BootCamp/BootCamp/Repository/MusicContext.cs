@@ -1,10 +1,7 @@
 ﻿using BootCamp.Model;
 using BootCamp.Repository.Mapping;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace BootCamp.Repository
 {
@@ -26,6 +23,15 @@ namespace BootCamp.Repository
             modelBuilder.ApplyConfiguration(new UserFavoriteMusicMapping());
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        //Aqui vou adicionar uma configuração para fazer o EntityFramework me 
+        //mostrar as query que ele tá executando.
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            ILoggerFactory Logger = LoggerFactory.Create(x => x.AddConsole());
+            optionsBuilder.UseLoggerFactory(Logger);
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }
