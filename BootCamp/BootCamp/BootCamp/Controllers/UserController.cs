@@ -123,5 +123,16 @@ namespace BootCamp.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveUser(Guid id)
+        {
+            var user = await this._userRepository.GetUserAsync(id);
+            if (user == null)
+                return UnprocessableEntity(new { Message = "User not Found" });
+            await this._userRepository.UpdateAsync(user);
+            return NoContent();
+
+        }
     }
 }
