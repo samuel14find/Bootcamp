@@ -44,7 +44,7 @@ namespace BootCamp.Controllers
             var user = await this._userRepository.AuthenticateAsync(request.Email, password);
             if(user == null)
             {
-                return UnprocessableEntity(new
+                return Unauthorized(new
                 {
                     Message = "Email/Senha inválidos"
                 });
