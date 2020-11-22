@@ -3,11 +3,9 @@ using BootCamp.Model;
 using BootCamp.Repository;
 using BootCamp.ViewModel.Request;
 using BootCamp.ViewModel.Response;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,6 +28,27 @@ namespace BootCamp.Controllers
 
         /// Devemos criar API para:
         /// Autenticar, Registar, Favoritar a Musica, e Desfavoritar a Musica 
+        /// 
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllUser()
+        {
+            var users = await this._userRepository.GetAllAsync();
+            var result = this._mapper.Map<List<UserResponse>>(users);
+            return Ok(result);
+
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser(Guid id)
+        {
+            var user = await this._userRepository.GetUserAsync(id);
+            if (user == null)
+                return NotFound();
+            var result = this._mapper.Map<UserResponse>(user);
+            return Ok(result);
+
+        }
         
         [HttpPost("authenticate")]
         public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
@@ -130,7 +149,7 @@ namespace BootCamp.Controllers
             var user = await this._userRepository.GetUserAsync(id);
             if (user == null)
                 return UnprocessableEntity(new { Message = "User not Found" });
-            await this._userRepository.UpdateAsync(user);
+            await this._userRepository.RemoveAsync(user);
             return NoContent();
 
         }
