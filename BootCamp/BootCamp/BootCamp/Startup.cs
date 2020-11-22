@@ -28,7 +28,8 @@ namespace BootCamp
             {
                 c.UseSqlite(this.Configuration.GetConnectionString("BootcampConnection"));
             });
-            services.AddScoped<AlbumRepository>();
+            services.AddScoped<AlbumRepository>();// Configuração para o ASP.NET entender que AlbumRepository tem que ser injetada
+            services.AddScoped<UserRepository>();//..
 
             //Configurando o Swagger
             services.AddSwaggerGen(c => {
