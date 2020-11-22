@@ -1,6 +1,7 @@
 ﻿using BootCamp.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,6 +37,12 @@ namespace BootCamp.Repository
 
         }
 
+        public async Task<IList<User>> GetAllAsync()
+        => await this._ctx.Users
+                .Include(x => x.FavoritMusic)
+                .ThenInclude(x => x.Music)
+                .ThenInclude(x => x.Album).ToListAsync();
+
         public async Task UpdateAsync(User user)
         {
             this._ctx.Users.Update(user);
@@ -48,5 +55,12 @@ namespace BootCamp.Repository
             .ThenInclude(x => x.Music)
             .ThenInclude(x => x.Album)
             .Where(x => x.Id == id).FirstOrDefaultAsync();
+
+        public async Task RemoveAsync(User user)
+        {
+            this._ctx.Users.Remove(user);
+            await this._ctx.SaveChangesAsync();
+
+        }
     }
 }
