@@ -15,4 +15,9 @@ export class UserService {
   public authenticate(payload: SignIn): Observable<User>{
     return this.http.post<User>(`${environment.baseUrl}User/authenticate`, payload)
   }
+
+  public removeFromFavorite(id: string, musicId: string): Observable<any>{
+    return this.http.delete(`${environment.baseUrl}User/${id}/favorite-music/${musicId}`);
+
+  }
 }
