@@ -28,7 +28,7 @@ namespace BootCamp.Controllers
             return Ok((await this._ctx.GetAllAsync()));
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetAlbum(Guid id)
         {
             var result = await this._ctx.GetAlbumByIdAsync(id);
