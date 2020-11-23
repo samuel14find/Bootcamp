@@ -13,6 +13,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   public authenticate(payload: SignIn): Observable<User>{
-    return this.http.post<User>(`${environment.baseUrl}User/authenticated`, payload)
+    return this.http.post<User>(`${environment.baseUrl}User/authenticate`, payload)
   }
 }
