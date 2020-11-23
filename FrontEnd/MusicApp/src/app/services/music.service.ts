@@ -12,6 +12,6 @@ export class MusicService {
   constructor(private http: HttpClient) { }
 
   public getAlbuns(): Observable<Album[]>{
-    return this.http.get<Album[]>(`${environment.baseUrl}album`)
+    return this.http.get<Album[]>(`${environment.baseUrl}albuns`)
   }
 }
