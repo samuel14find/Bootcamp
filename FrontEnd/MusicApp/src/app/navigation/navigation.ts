@@ -6,12 +6,29 @@ export const navigation: FuseNavigation[] = [
         title: "",
         type: "group",
         icon: "web",
-        children: [{
+        children: [
+            {
             id: "music",
             title: "Músicas",
             type: "item",
             icon: "keyboard_arrow_right",
             url: "/music"
-        }],
+            },
+            {
+                id: "favorite",
+                title: "Favorite Musics",
+                type: "item",
+                icon: "keyboard_arrow_right",
+                url: "/favorit-music"
+            },
+
+            {
+                id: "signIn",
+                title: "Logar",
+                type: "item",
+                icon: "keyboard_arrow_right",
+                url: "/auth/login"
+            }
+    ],
     },
 ];
