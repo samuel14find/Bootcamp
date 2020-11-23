@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 
 import { FuseConfigService } from "@fuse/services/config.service";
 import SignIn from 'app/model/signIn';
+import { PersistedStateService } from 'app/services/persisted-state.service';
 import { UserService } from 'app/services/user.service';
 import swal from "sweetalert2";
 
@@ -18,7 +19,9 @@ export class LoginComponent implements OnInit {
     constructor(
         private fuseConfigService: FuseConfigService,
         private formBuilder: FormBuilder,
-        private userService: UserService
+        private userService: UserService,
+        private persistedState: PersistedStateService,
+        private router: Router
     ) {
         this.fuseConfigService.config = {
             layout: {
@@ -54,6 +57,31 @@ export class LoginComponent implements OnInit {
         signIn.email = email;
         signIn.password=password;
 
-        this.userService.authenticate(signIn).subscribe(result=>{})
+        this.userService.authenticate(signIn).subscribe(result=>{
+            this.persistedState.set(this.persistedState.LOGGED_IN, result)
+            this.router.navigate(["music"]);
+
+            // Exibe menu, toolbar, footer e header
+            this.fuseConfigService.config = {
+                layout: {
+                    navbar: {
+                        hidden: false,
+                    },
+                    toolbar: {
+                        hidden: false,
+                    },
+                    footer: {
+                        hidden: false,
+                    },
+                    sidepanel: {
+                        hidden: false,
+                    },
+                },
+            }
+        }, (error)=>{
+            if(error.status == 401){
+                swal.fire("Ops!", "Email ou senha inválido", "error");
+            }
+        })
     }
 }
