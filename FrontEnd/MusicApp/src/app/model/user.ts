@@ -1,8 +1,8 @@
 import FavoriteMusic from './favoriteMusic';
 
 export default class User{
-    public id?: String;
-    public name?: String;
-    public photo?: String;
-    public favoriteMusics: FavoriteMusic[];
+    public id?: string;
+    public name?: string;
+    public photo?: string;
+    public favoritMusics: FavoriteMusic[];
 }
