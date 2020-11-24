@@ -19,7 +19,7 @@
 </div>
 
 
-<div class="navbar-scroll-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground" fusePerfectScrollbar
+<div class="navbar-scroll-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground" *ngIf="user" fusePerfectScrollbar
     [fusePerfectScrollbarOptions]="{suppressScrollX: true}">
 
     <div class="user" fxLayout="column" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">

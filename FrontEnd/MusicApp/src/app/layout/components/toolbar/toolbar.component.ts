@@ -53,6 +53,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
                 this.hiddenNavbar = settings.layout.navbar.hidden === true;
             });
         this.user = this.persistedState.get(this.persistedState.LOGGED_IN);
+
+        if(!this.user|| this.user == undefined){
+            this.router.navigate(["auth", "login"])
+        }
     }
 
     /**
