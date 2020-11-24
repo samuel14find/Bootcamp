@@ -20,4 +20,14 @@ export class UserService {
     return this.http.delete(`${environment.baseUrl}User/${id}/favorite-music/${musicId}`);
 
   }
+
+  public addToFavorite(id: string, musicId: string): Observable<any>{
+    // Coloco null porque não tenho dados para enviar
+    return this.http.post<any>(`${environment.baseUrl}User/${id}/favorite-music/${musicId}`, null);
+
+  }
+
+  public getUser(id): Observable<User> {
+    return this.http.get<User>(`${environment.baseUrl}User/${id}`);
+  }
 }
